@@ -8,7 +8,5 @@ class PublishPageJob
 
     page.page_publications.create!(html: html, css: css)
     page.update!(status: :published, published_at: Time.current)
-
-    Rails.cache.write("page:#{page.slug}:publication", { html: html, css: css }, expires_in: 1.day)
   end
 end

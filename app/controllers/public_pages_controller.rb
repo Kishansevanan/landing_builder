@@ -1,8 +1,10 @@
 class PublicPagesController < ActionController::Base
   def show
     slug = params[:slug]
-    publication = Rails.cache.fetch("page:#{slug}:publication") do
-      pub = Page.published.find_by!(slug: slug).latest_publication
+    page = Page.published.find_by!(slug: slug)
+    cache_key = "page:#{slug}:publication:#{page.published_at.to_i}"
+    publication = Rails.cache.fetch(cache_key, expires_in: 1.day) do
+      pub = page.latest_publication
       { html: pub.html, css: pub.css }
     end
     render html: <<~HTML.html_safe, layout: false

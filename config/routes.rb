@@ -2,7 +2,10 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :pages, only: %i[index show new create update] do
-    member { post :publish }
+    member do
+      post :publish
+      get :publication_status
+    end
   end
 
   get "/p/:slug", to: "public_pages#show", as: :public_page

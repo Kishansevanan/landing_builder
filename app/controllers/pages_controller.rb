@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_page, only: %i[show update publish]
+  before_action :set_page, only: %i[show update publish publication_status]
 
   def index
     @pages = current_user.pages.order(created_at: :desc)
@@ -33,7 +33,11 @@ class PagesController < ApplicationController
 
   def publish
     PublishPageJob.perform_async(@page.id)
-    head :accepted
+    render json: { queued_at: Time.current.iso8601 }
+  end
+
+  def publication_status
+    render json: { published_at: @page.reload.published_at&.iso8601 }
   end
 
   private
