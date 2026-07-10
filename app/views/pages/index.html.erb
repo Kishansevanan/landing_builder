@@ -1,0 +1,35 @@
+<div style="max-width: 720px; margin: 0 auto; padding: 32px 24px;">
+  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
+    <h1 style="margin: 0;">My Pages</h1>
+    <a href="/pages/new" style="display: inline-flex; align-items: center; gap: 5px; padding: 7px 13px; background: #0a7065; color: white; border-radius: 6px; font-size: 13px; font-weight: 600; text-decoration: none;">
+      + New Page
+    </a>
+  </div>
+
+  <% if @pages.empty? %>
+    <div style="text-align: center; padding: 48px 24px; color: #6B6B64; border: 1px solid #E3E3DF; border-radius: 8px; background: white;">
+      <div style="font-size: 15px; font-weight: 500; margin-bottom: 6px; color: #1A1A17;">No pages yet</div>
+      <div style="font-size: 13px;">Click "New Page" to create your first landing page.</div>
+    </div>
+  <% else %>
+    <div style="background: #E3E3DF; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; gap: 1px;">
+      <% @pages.each do |page| %>
+        <div style="display: flex; align-items: center; padding: 12px 16px; background: white; gap: 12px;">
+          <div style="flex: 1; min-width: 0;">
+            <div style="font-size: 14px; font-weight: 600; color: #1A1A17; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><%= page.title %></div>
+            <div style="font-size: 12px; color: #6B6B64;">Last edited <%= page.updated_at.strftime("%b %d, %Y") %></div>
+          </div>
+          <% if page.status == "published" %>
+            <span style="padding: 2px 8px; background: #D4F0EC; color: #0a7065; border-radius: 999px; font-size: 11px; font-weight: 600; white-space: nowrap;">Published</span>
+          <% else %>
+            <span style="padding: 2px 8px; background: #E3E3DF; color: #6B6B64; border-radius: 999px; font-size: 11px; font-weight: 600; white-space: nowrap;">Draft</span>
+          <% end %>
+          <% if page.status == "published" %>
+            <a href="/p/<%= page.slug %>" target="_blank" style="padding: 5px 10px; background: white; border: 1px solid #A8DFD7; color: #0a7065; border-radius: 5px; font-size: 12px; font-weight: 500; text-decoration: none; white-space: nowrap;">View ↗</a>
+          <% end %>
+          <a href="/pages/<%= page.id %>" style="padding: 5px 10px; background: #F0FAF9; border: 1px solid #A8DFD7; color: #0a7065; border-radius: 5px; font-size: 12px; font-weight: 500; text-decoration: none; white-space: nowrap;">Edit</a>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

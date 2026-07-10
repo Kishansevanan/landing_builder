@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+@layer base {
+  h1 { font-size: 2rem;      font-weight: 700; line-height: 1.2;  letter-spacing: -0.03em; }
+  h2 { font-size: 1.5rem;    font-weight: 700; line-height: 1.25; letter-spacing: -0.02em; }
+  h3 { font-size: 1.125rem;  font-weight: 600; line-height: 1.35; letter-spacing: -0.01em; }
+}
+
+@layer components {
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: background .1s, border-color .1s;
+    line-height: 1.4;
+  }
+  .btn-primary {
+    background: #0a7065;
+    color: white;
+    border-color: #0a7065;
+  }
+  .btn-primary:hover { background: #085E53; border-color: #085E53; }
+  .btn-secondary {
+    background: white;
+    color: #1A1A17;
+    border-color: #E3E3DF;
+  }
+  .btn-secondary:hover { border-color: #6B6B64; }
+  .btn-ghost {
+    background: transparent;
+    color: #6B6B64;
+    border-color: transparent;
+  }
+  .btn-ghost:hover { background: #E3E3DF; color: #1A1A17; }
+}
