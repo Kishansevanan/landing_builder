@@ -1,0 +1,49 @@
+graph TD
+    subgraph FE ["Vue Frontend"]
+        B["Builder.vue\nstate · publish · poll"]
+        C["Canvas.vue\ndrag · resize · select"]
+        S["Sidebar.vue\nadd elements"]
+        PP["PropertiesPanel.vue\nedit styles"]
+    end
+
+    subgraph Rail ["Rails Web"]
+        PC["PagesController\nupdate · publish\npublication_status"]
+        PPC["PublicPagesController\nshow /p/:slug"]
+    end
+
+    subgraph Store ["Storage"]
+        PG[("PostgreSQL\npages · page_publications\nusers")]
+        RD[("Redis\nSidekiq queue + cache")]
+    end
+
+    subgraph BG ["Background"]
+        SK["Sidekiq worker"]
+        JB["PublishPageJob"]
+        LC["LayoutCompiler\njsonb → HTML + CSS"]
+    end
+
+    Visitor(["Visitor"])
+
+    C --> B
+    S --> B
+    PP --> B
+
+    B -->|"PATCH autosave\nlayout jsonb"| PC
+    B -->|"POST /publish"| PC
+    B -->|"GET /publication_status\npoll 1s"| PC
+
+    PC -->|"save layout"| PG
+    PC -->|"enqueue"| RD
+    PG -->|"published_at"| PC
+
+    RD -->|"dequeue"| SK
+    SK --> JB
+    JB -->|"read layout"| PG
+    JB --> LC
+    LC -->|"html + css"| JB
+    JB -->|"PagePublication\n+ published_at"| PG
+
+    Visitor -->|"GET /p/:slug"| PPC
+    PPC -->|"cache key:\nslug + published_at"| RD
+    PPC -->|"cache miss\nlatest_publication"| PG
+    PPC -->|"render HTML"| Visitor

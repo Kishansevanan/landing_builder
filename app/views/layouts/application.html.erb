@@ -24,6 +24,13 @@
   </head>
 
   <body>
+    <% if user_signed_in? %>
+      <nav style="display: flex; align-items: center; justify-content: flex-end; padding: 8px 24px; background: white; border-bottom: 1px solid #E3E3DF;">
+        <span style="font-size: 13px; color: #6B6B64; margin-right: 12px;"><%= current_user.email %></span>
+        <%= button_to "Log out", destroy_user_session_path, method: :delete,
+              style: "padding: 5px 12px; background: white; border: 1px solid #E3E3DF; color: #1A1A17; border-radius: 5px; font-size: 13px; font-weight: 500; cursor: pointer;" %>
+      </nav>
+    <% end %>
     <%= yield %>
   </body>
 </html>
