@@ -8,6 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
     pageId: el.dataset.pageId,
     initialLayout: JSON.parse(el.dataset.layout),
     pageSlug: el.dataset.slug,
-    initialStatus: el.dataset.status
+    initialPublished: el.dataset.published
   }).mount(el)
 })

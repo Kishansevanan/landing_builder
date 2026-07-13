@@ -8,7 +8,7 @@ class LayoutCompiler
   def call
     css_rules = []
     body = @layout["elements"].map { |element| render_element(element, css_rules) }.join
-    ["<div class=\"page\">#{body}</div>", css_rules.join("\n")]
+    [ "<div class=\"page\">#{body}</div>", css_rules.join("\n") ]
   end
 
   private

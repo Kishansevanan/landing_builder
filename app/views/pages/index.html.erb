@@ -17,13 +17,13 @@
             <div style="font-size: 14px; font-weight: 600; color: #1A1A17; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><%= page.title %></div>
             <div style="font-size: 12px; color: #6B6B64;">Last edited <%= page.updated_at.strftime("%b %d, %Y") %></div>
           </div>
-          <% if page.status == "published" %>
-            <span style="padding: 2px 8px; background: #D4F0EC; color: #0a7065; border-radius: 999px; font-size: 11px; font-weight: 600; white-space: nowrap;">Published</span>
+          <% if page.published? %>
+            <span style="padding: 2px 8px; background: #D4F0EC; color: #0a7065; border-radius: 999px; font-size: 12px; font-weight: 600; white-space: nowrap;">Published</span>
           <% else %>
-            <span style="padding: 2px 8px; background: #E3E3DF; color: #6B6B64; border-radius: 999px; font-size: 11px; font-weight: 600; white-space: nowrap;">Draft</span>
+            <span style="padding: 2px 8px; background: #E3E3DF; color: #1A1A17; border-radius: 999px; font-size: 12px; font-weight: 600; white-space: nowrap;">Draft</span>
           <% end %>
-          <% if page.status == "published" %>
-            <%= link_to "View ↗", public_page_path(page.slug), target: "_blank", style: "padding: 5px 10px; background: white; border: 1px solid #A8DFD7; color: #0a7065; border-radius: 5px; font-size: 12px; font-weight: 500; text-decoration: none; white-space: nowrap;" %>
+          <% if page.published? %>
+            <%= link_to "View ↗", public_page_path(page.slug), target: "_blank", rel: "noopener noreferrer", style: "padding: 5px 10px; background: white; border: 1px solid #A8DFD7; color: #0a7065; border-radius: 5px; font-size: 12px; font-weight: 500; text-decoration: none; white-space: nowrap;" %>
           <% end %>
           <%= link_to "Edit", page_path(page), style: "padding: 5px 10px; background: #F0FAF9; border: 1px solid #A8DFD7; color: #0a7065; border-radius: 5px; font-size: 12px; font-weight: 500; text-decoration: none; white-space: nowrap;" %>
         </div>

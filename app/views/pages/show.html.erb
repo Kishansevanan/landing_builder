@@ -2,6 +2,6 @@
      data-page-id="<%= @page.id %>"
      data-layout="<%= @page.layout.to_json %>"
      data-slug="<%= @page.slug %>"
-     data-status="<%= @page.status %>">
+     data-published="<%= @page.published? %>">
 </div>
 <%= javascript_include_tag "builder" %>

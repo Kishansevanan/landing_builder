@@ -14,11 +14,11 @@ function debounce(fn, delay) {
 
 export default {
   components: { Sidebar, Canvas, PropertiesPanel },
-  props: { pageId: String, initialLayout: Object, pageSlug: String, initialStatus: String },
+  props: { pageId: String, initialLayout: Object, pageSlug: String, initialPublished: String },
   setup(props) {
     const layout = reactive(props.initialLayout)
     const publishStatus = ref("")
-    const isPublished = ref(props.initialStatus === "published")
+    const isPublished = ref(props.initialPublished === "true")
     const selectedId = ref(null)
 
     const selectedElement = computed(() =>
